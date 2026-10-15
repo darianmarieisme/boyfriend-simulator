@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Debug Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 flex items-center justify-center p-4">
+  <div id="app" class="w-full max-w-5xl">
+    <div class="text-white text-center p-8 bg-white/20 rounded-lg">
+      <h1 class="text-4xl font-bold mb-4">Debug Test</h1>
+      <p>If you can see this, the basic setup is working.</p>
+      <button onclick="testRender()" class="mt-4 px-6 py-3 bg-white/90 text-purple-700 rounded-full font-semibold">
+        Test Render
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function testRender() {
+      const app = document.getElementById("app");
+      console.log("App element:", app);
+      console.log("App innerHTML before:", app.innerHTML);
+
+      app.innerHTML = `
+        <div class="text-white text-center p-8 bg-white/20 rounded-lg">
+          <h1 class="text-4xl font-bold mb-4">Render Successful!</h1>
+          <p>The JavaScript is working correctly.</p>
+        </div>
+      `;
+
+      console.log("App innerHTML after:", app.innerHTML);
+    }
+
+    console.log("Script loaded");
+    console.log("App element on load:", document.getElementById("app"));
+  </script>
+</body>
+</html>

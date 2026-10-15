@@ -1,0 +1,999 @@
+body {
+  font-family: 'Quicksand', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#app {
+  flex: 1 0 auto;
+  width: 100%;
+  padding-bottom: 8px; /* light space above the footer */
+  position: relative;
+  z-index: 10;
+}
+
+/* Disclaimer footer (in-flow, centered) */
+#vb-disclaimer {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  pointer-events: auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  display: block;
+  align-self: stretch;
+  z-index: 100;
+}
+#vb-disclaimer.default-footer {
+  margin: 8px auto 12px;
+  padding-top: 6px;
+}
+#vb-disclaimer.intro-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 12vh;
+  margin: 0 auto;
+  padding-top: 6px;
+  padding-bottom: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+#vb-disclaimer.intro-footer .vb-disclaimer-inner {
+  pointer-events: auto;
+}
+#vb-disclaimer .vb-disclaimer-inner {
+  display: block;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  background: transparent;
+  pointer-events: auto;
+}
+#vb-disclaimer .vb-disclaimer-text {
+  font-size: 10px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.85);
+}
+#vb-disclaimer a {
+  pointer-events: auto;
+}
+#vb-disclaimer .vb-disclaimer-link {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+#vb-disclaimer.footer-blurred {
+  filter: blur(8px) saturate(0.6);
+  opacity: 0.8;
+  pointer-events: none;
+}
+/* Refined ambient layer */
+body::before {
+  content: "❤";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 14px;
+  text-shadow:
+    12vw 8vh rgba(255,255,255,0.18),
+    32vw 22vh rgba(255,255,255,0.16),
+    54vw 14vh rgba(255,255,255,0.2),
+    70vw 26vh rgba(255,255,255,0.16),
+    20vw 30vh rgba(255,255,255,0.16),
+    66vw 6vh rgba(255,255,255,0.18);
+  animation: vb-heart-drift 12s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.22) 1.4px, transparent 3px),
+    radial-gradient(rgba(255,255,255,0.18) 1.2px, transparent 3px);
+  background-size: 180px 180px, 220px 220px;
+  background-position: 20px 40px, 80px 10px;
+  animation: vb-particle-shift 24s linear infinite;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* Soft ambient hearts + particles */
+body::before {
+  content: "❤";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 18px;
+  text-shadow:
+    12vw 8vh rgba(255,255,255,0.28),
+    26vw 22vh rgba(255,255,255,0.25),
+    42vw 14vh rgba(255,255,255,0.32),
+    58vw 26vh rgba(255,255,255,0.22),
+    70vw 10vh rgba(255,255,255,0.3),
+    84vw 24vh rgba(255,255,255,0.26),
+    18vw 30vh rgba(255,255,255,0.24),
+    60vw 6vh rgba(255,255,255,0.28);
+  animation: vb-heart-drift 10s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.4) 1.2px, transparent 3px),
+    radial-gradient(rgba(255,255,255,0.35) 1px, transparent 3px);
+  background-size: 140px 140px, 180px 180px;
+  background-position: 20px 40px, 80px 10px;
+  animation: vb-particle-shift 18s linear infinite;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+@keyframes vb-heart-drift {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-12px); }
+}
+
+@keyframes vb-particle-shift {
+  from { background-position: 20px 40px, 80px 10px; }
+  to   { background-position: 120px 140px, 180px 110px; }
+}
+
+/* Headline font */
+.vb-script {
+  font-family: 'Great Vibes', 'Pacifico', cursive;
+  font-size: 3.8rem;       /* mobile */
+}
+@media (min-width: 768px) {
+  .vb-script { font-size: 4.6rem; }  /* desktop */
+}
+
+.vb-banner-text {
+  background-image: linear-gradient(120deg, #fff7d6 0%, #fde68a 30%, #f3e8ff 60%, #fff7d6 100%);
+  background-size: 200% 200%;
+  animation: vb-banner-shine 5s ease-in-out infinite;
+  -webkit-text-stroke: 0.1px rgba(255,255,255,0.65);
+  paint-order: stroke fill;
+  text-shadow: none;
+}
+
+.vb-banner-title {
+  line-height: 1.15;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: block;
+}
+
+.vb-question-text {
+  font-family: 'Montserrat Alternates', 'Quicksand', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.question-title {
+  color: #a321b8;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  font-weight: 700;
+}
+
+.question-card {
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vb-subheader-text {
+  font-family: 'Montserrat Alternates', 'Quicksand', sans-serif;
+}
+
+.quiz-vignette {
+  position: relative;
+}
+.quiz-vignette::before {
+  content: "";
+  position: absolute;
+  inset: -80px 0 0 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  height: 480px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 75%);
+  filter: blur(18px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.vb-question-ribbon {
+  position: relative;
+  overflow: visible;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.25) 100%);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 14px;
+  clip-path: polygon(0 12%, 8% 0, 92% 0, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0 88%);
+}
+.vb-question-ribbon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 55%);
+  pointer-events: none;
+}
+.vb-question-ribbon .corner-sparkle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(0.6px);
+  pointer-events: none;
+}
+.vb-question-ribbon .corner-sparkle.tl { top: 6px; left: 10px; }
+.vb-question-ribbon .corner-sparkle.tr { top: 6px; right: 10px; }
+.vb-question-ribbon .corner-sparkle.bl { bottom: 6px; left: 10px; }
+.vb-question-ribbon .corner-sparkle.br { bottom: 6px; right: 10px; }
+
+.quiz-sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  animation: quiz-sparkle-float 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.quiz-sparkle.s1 { top: -10px; left: 18%; animation-delay: 0s; }
+.quiz-sparkle.s2 { top: -16px; right: 18%; animation-delay: 0.8s; }
+.quiz-sparkle.s3 { bottom: -12px; left: 30%; animation-delay: 1.6s; }
+.quiz-sparkle.s4 { bottom: -18px; right: 26%; animation-delay: 2.2s; }
+
+@keyframes quiz-sparkle-float {
+  0% { opacity: 0.2; transform: translateY(0) scale(0.8); }
+  50% { opacity: 0.9; transform: translateY(-6px) scale(1.1); }
+  100% { opacity: 0.2; transform: translateY(0) scale(0.8); }
+}
+
+.quiz-option {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.quiz-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -16px rgba(15,23,42,0.35);
+}
+
+.progress-pill {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255,255,255,0.28);
+  border-radius: 9999px;
+  padding: 6px 10px;
+}
+
+.heart-icon svg path {
+  stroke: rgba(255,255,255,0.8);
+  stroke-width: 0.8;
+}
+
+@keyframes vb-banner-shine {
+  0%, 20% { background-position: 0% 50%; }
+  50%    { background-position: 100% 50%; }
+  80%,100% { background-position: 0% 50%; }
+}
+
+.vb-banner-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.vb-banner-shell {
+  border-radius: 12px;
+  overflow: visible;
+  clip-path: polygon(0 12%, 8% 0, 92% 0, 100% 12%, 100% 88%, 92% 100%, 8% 100%, 0 88%);
+  box-shadow: 0 12px 30px -22px rgba(15,23,42,0.55);
+  border: 1px solid rgba(255,255,255,0.7);
+  position: relative;
+}
+
+.vb-banner-heart {
+  position: absolute;
+  color: rgba(255,255,255,0.6);
+  font-size: 68px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 2;
+  pointer-events: none;
+}
+.vb-banner-heart::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.7) 1.8px, transparent 4px),
+    radial-gradient(circle at 70% 65%, rgba(255,255,255,0.65) 1.6px, transparent 4px),
+    radial-gradient(circle at 45% 80%, rgba(255,255,255,0.5) 1.4px, transparent 4px),
+    radial-gradient(circle at 80% 25%, rgba(255,255,255,0.6) 1.2px, transparent 3.6px);
+  background-repeat: no-repeat;
+  animation: vb-banner-particles 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+.vb-banner-heart.tl { top: -6px; left: -6px; transform: rotate(-18deg); }
+.vb-banner-heart.br { bottom: -6px; right: -6px; transform: rotate(14deg); }
+
+.vb-banner-heart-small {
+  position: absolute;
+  color: rgba(255,255,255,0.5);
+  font-size: 32px;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  z-index: 2;
+  pointer-events: none;
+}
+.vb-banner-heart-small::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  background-image:
+    radial-gradient(circle at 30% 35%, rgba(255,255,255,0.6) 1.6px, transparent 3.8px),
+    radial-gradient(circle at 75% 60%, rgba(255,255,255,0.5) 1.4px, transparent 3.6px),
+    radial-gradient(circle at 55% 75%, rgba(255,255,255,0.45) 1.2px, transparent 3.2px);
+  background-repeat: no-repeat;
+  animation: vb-banner-particles 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.vb-banner-heart-small.tl { top: -2px; left: 40px; transform: rotate(18deg); }
+.vb-banner-heart-small.br { bottom: -4px; right: 37px; transform: rotate(-14deg); }
+
+@keyframes vb-banner-particles {
+  0% { opacity: 0.35; transform: translateY(0) scale(0.96); }
+  50% { opacity: 0.9; transform: translateY(-3px) scale(1.05); }
+  100% { opacity: 0.35; transform: translateY(0) scale(0.96); }
+}
+
+
+/* Fade / scale in for cards & messages */
+.vb-fade-in {
+  animation: vb-fade-in 0.3s ease-out;
+}
+
+@keyframes vb-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.vb-quiz-card { min-height: 440px; }
+.vb-quiz-card.is-entering { animation: vb-fade-in-flat 0.18s ease-out; }
+.vb-quiz-card.is-leaving { animation: vb-fade-out 0.18s ease-in forwards; }
+
+.quiz-frame.is-entering { animation: vb-fade-in-flat 0.18s ease-out; }
+.quiz-frame.is-leaving { animation: vb-fade-out 0.18s ease-in forwards; }
+.quiz-frame {
+  min-height: 720px;
+  will-change: opacity, filter;
+}
+.quiz-frame.blur-in { animation: quiz-blur-in 0.26s ease forwards; }
+@keyframes quiz-blur-in {
+  from { opacity: 0; filter: blur(6px); }
+  to   { opacity: 1; filter: blur(0px); }
+}
+
+.quiz-step.is-entering {
+  animation: quiz-step-fade 0.22s ease;
+}
+.quiz-step.is-leaving {
+  animation: quiz-step-fade-out 0.18s ease forwards;
+}
+@keyframes quiz-step-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes quiz-step-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+.vb-quiz-card {
+  position: relative;
+  overflow: hidden;
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 22px 60px -34px rgba(15, 23, 42, 0.55), 0 10px 28px -18px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(14px);
+  clip-path: ellipse(70% 85% at 50% 50%);
+}
+.vb-quiz-card::before,
+.vb-quiz-card::after {
+  display: none;
+}
+
+.vb-question-pill {
+  position: relative;
+  overflow: hidden;
+  clip-path: ellipse(80% 100% at 50% 50%);
+  box-shadow: 0 14px 40px -24px rgba(15,23,42,0.45);
+}
+.vb-question-pill::before {
+  content: "";
+  position: absolute;
+  inset: 4% 10% 50% 10%;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 65%);
+  pointer-events: none;
+}
+
+/* Quiz progress hearts */
+.vb-progress-hearts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.vb-progress-heart {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.16);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+}
+.vb-progress-heart.filled {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #d946ef 100%);
+  color: #fff;
+  border-color: rgba(255,255,255,0.85);
+  box-shadow: 0 0 0 0 rgba(236,72,153,0.45), 0 10px 24px -12px rgba(109,40,217,0.35);
+  animation: vb-heart-pulse 1s ease-in-out;
+}
+.pulse-once {
+  animation: vb-heart-pulse 0.8s ease-in-out;
+}
+
+@keyframes vb-heart-pulse {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(236,72,153,0.35); }
+  50% { transform: scale(1); box-shadow: 0 0 0 8px rgba(236,72,153,0); }
+  100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(236,72,153,0); }
+}
+
+@keyframes vb-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(0); }
+}
+
+@keyframes vb-fade-in-flat {
+  from { opacity: 0; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.vb-quiz-card,
+.vb-game-card {
+  border: none;
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+}
+.vb-modal {
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 20px 55px -28px rgba(15, 23, 42, 0.55), 0 6px 20px -12px rgba(15, 23, 42, 0.45);
+}
+
+/* Game card fade to avoid jumps on actions */
+.vb-game-card { min-height: 520px; }
+.vb-game-card.is-entering { animation: vb-fade-in 0.22s ease-out; }
+.vb-game-card.is-leaving { animation: vb-fade-out 0.16s ease-in forwards; }
+
+/* Gentle pulsing on hover */
+.vb-hover-pulse:hover {
+  animation: vb-hover-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes vb-hover-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 15px -5px rgba(0,0,0,0.1);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 18px 25px -8px rgba(0,0,0,0.18);
+  }
+}
+
+/* Tap flash for interaction buttons */
+.vb-press {
+  position: relative;
+  overflow: hidden;
+}
+.vb-press::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0) 60%);
+  transform: scale(0.6);
+  animation: vb-press-flash 0.45s ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes vb-press-flash {
+  from { opacity: 0.9; transform: scale(0.6); }
+  to   { opacity: 0; transform: scale(1.55); }
+}
+
+/* Interaction cooldown overlay */
+.vb-cooldown-overlay {
+  --vb-cooldown-progress: 0;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15,23,42,0.52), rgba(15,23,42,0.7));
+  mix-blend-mode: multiply;
+  transform-origin: left center;
+  transform: scaleX(var(--vb-cooldown-progress));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.12s linear, opacity 0.18s ease;
+  z-index: 2;
+}
+.vb-cooldown-overlay.is-active {
+  opacity: 1;
+}
+button.is-cooldown {
+  cursor: not-allowed;
+}
+button.is-cooldown span {
+  opacity: 0.8;
+}
+.vb-cooldown-ping {
+  animation: vb-cooldown-ping 0.18s ease;
+}
+@keyframes vb-cooldown-ping {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+/* Quiz button selection flash */
+.vb-quiz-press {
+  position: relative;
+  overflow: hidden;
+}
+.vb-quiz-press::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,0) 70%);
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.95);
+  animation: vb-quiz-press 0.6s ease-out;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+@keyframes vb-quiz-press {
+  from { opacity: 1; transform: scale(0.45); box-shadow: 0 0 0 0 rgba(255,255,255,0.9); }
+  to   { opacity: 0; transform: scale(2.35); box-shadow: 0 0 0 28px rgba(255,255,255,0); }
+}
+
+/* Quiz selected state */
+.vb-quiz-selected {
+  background: linear-gradient(135deg, #fffbe6 0%, #ffeec4 45%, #f2d8ff 100%) !important;
+  border-color: #fff7c2 !important;
+  box-shadow:
+    0 0 0 0 rgba(255, 255, 240, 0.95),
+    0 0 34px 14px rgba(255, 255, 240, 0.8),
+    0 10px 30px -10px rgba(124, 58, 237, 0.45);
+  animation: vb-quiz-glow 0.65s ease-out forwards;
+  position: relative;
+  overflow: visible !important;
+}
+.vb-quiz-selected::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,255,240,0.7) 0%, rgba(255,255,240,0.2) 55%, rgba(255,255,240,0) 75%);
+  filter: blur(2px);
+  opacity: 0.9;
+  animation: vb-quiz-ring 0.7s ease-out forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+.vb-quiz-selected span { position: relative; z-index: 2; }
+
+@keyframes vb-quiz-glow {
+  from {
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 240, 1),
+      0 0 34px 16px rgba(255, 255, 240, 0.8),
+      0 10px 30px -10px rgba(124, 58, 237, 0.55);
+  }
+  to {
+    box-shadow:
+      0 0 0 26px rgba(255, 255, 240, 0),
+      0 0 34px 22px rgba(255, 255, 240, 0),
+      0 10px 30px -10px rgba(124, 58, 237, 0);
+  }
+}
+
+@keyframes vb-quiz-ring {
+  from { opacity: 0.9; transform: scale(0.9); }
+  to   { opacity: 0; transform: scale(1.25); }
+}
+
+/* Modal backdrop and dialog */
+.vb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: vb-fade-in 0.2s ease-out;
+}
+.vb-modal-backdrop.vb-modal-hide {
+  animation: vb-fade-out 0.18s ease-in forwards;
+}
+.vb-modal {
+  max-width: 420px;
+  width: 90%;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  border: 2px solid rgba(255,255,255,0.7);
+  animation: vb-fade-in 0.2s ease-out;
+}
+.vb-modal.vb-modal-hide {
+  animation: vb-fade-out 0.18s ease-in forwards;
+}
+
+/* Back button hover + press */
+.vb-hover-shrink {
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.vb-hover-shrink:hover {
+  transform: scale(0.97);
+  box-shadow: 0 10px 24px -12px rgba(59, 7, 100, 0.35);
+}
+
+.vb-back-btn-base {
+  position: relative;
+  overflow: hidden;
+}
+
+.vb-back-press {
+  position: relative;
+  overflow: hidden;
+}
+.vb-back-press::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(224,231,255,0.45) 45%, rgba(255,255,255,0) 70%);
+  box-shadow: 0 0 0 0 rgba(224,231,255,0.75);
+  animation: vb-back-flash 0.4s ease-out;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+@keyframes vb-back-flash {
+  from { opacity: 1; transform: scale(0.55); box-shadow: 0 0 0 0 rgba(224,231,255,0.75); }
+  to   { opacity: 0; transform: scale(1.8); box-shadow: 0 0 0 18px rgba(224,231,255,0); }
+}
+
+/* Modal buttons */
+.vb-modal-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.vb-modal-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 12px 28px -12px rgba(0,0,0,0.25);
+}
+.vb-modal-btn::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 40%, rgba(255,255,255,0) 70%);
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.85);
+  animation: vb-modal-press 0.44s ease-out;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+@keyframes vb-modal-press {
+  from { opacity: 1; transform: scale(0.7); box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
+  to   { opacity: 0; transform: scale(1.65); box-shadow: 0 0 0 22px rgba(255,255,255,0); }
+}
+
+/* Modal button selected flash */
+.vb-modal-selected {
+  background: linear-gradient(135deg, #fffaf0 0%, #fff1cc 45%, #f1e9ff 100%) !important;
+  box-shadow:
+    0 0 0 0 rgba(255,255,255,0.95),
+    0 0 26px 12px rgba(255,255,255,0.7),
+    0 8px 20px -10px rgba(109,40,217,0.32);
+  animation: vb-modal-glow 0.54s ease-out forwards;
+  position: relative;
+}
+.vb-modal-selected::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255,255,240,0.65) 0%, rgba(255,255,240,0.25) 50%, rgba(255,255,240,0) 75%);
+  filter: blur(2px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: vb-modal-ring 0.4s ease-out forwards;
+}
+
+@keyframes vb-modal-glow {
+  from {
+    box-shadow:
+      0 0 0 0 rgba(255,255,255,1),
+      0 0 26px 14px rgba(255,255,255,0.78),
+      0 8px 20px -10px rgba(109,40,217,0.38);
+  }
+  to {
+    box-shadow:
+      0 0 0 22px rgba(255,255,255,0),
+      0 0 26px 24px rgba(255,255,255,0),
+      0 8px 20px -10px rgba(109,40,217,0);
+  }
+}
+
+@keyframes vb-modal-ring {
+  from { opacity: 0.85; transform: scale(0.9); }
+  to   { opacity: 0; transform: scale(1.25); }
+}
+
+/* Heart burst overlay when kissing */
+.vb-hearts-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 20;
+}
+
+.vb-heart {
+  position: absolute;
+  color: #ec4899;
+  opacity: 0;
+  animation: vb-heart-float 1.4s ease-out forwards;
+  font-size: 18px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+@keyframes vb-heart-float {
+  0% {
+    transform: translateY(30px) scale(0.6) rotate(var(--vb-heart-rot, 0deg));
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-140px) scale(1.3) rotate(var(--vb-heart-rot, 0deg));
+    opacity: 0;
+  }
+}
+
+/* Simple message fade */
+.vb-message {
+  animation: vb-message 0.25s ease-out;
+}
+
+@keyframes vb-message {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sparkle dots for headers */
+.vb-sparkle-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 12px rgba(255,255,255,0.7);
+  animation: vb-sparkle 1.8s ease-in-out infinite;
+}
+
+.vb-sparkle-dot:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.vb-sparkle-dot:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+@keyframes vb-sparkle {
+  0%, 100% {
+    transform: scale(0.9) translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.15) translateY(-3px);
+    opacity: 0.6;
+  }
+}
+
+/* Simple utility for tiny delay classes like animation-delay-2000/4000 */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.vb-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.2); /* light dim behind menu */
+  backdrop-filter: none;
+  z-index: 1190;
+  pointer-events: auto; /* we use click listener to close */
+}
+.vb-menu-fixed-quiz {
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  z-index: 1200;
+  pointer-events: auto;
+}
+.vb-menu-pop {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  min-width: 180px;
+  z-index: 1201;
+  pointer-events: auto;
+}
+.vb-menu-trigger {
+  position: relative;
+  z-index: 1202;
+}
+
+/* Ensure boyfriend name text isn’t clipped at the sides */
+.vb-boy-name {
+  padding: 0 12px;
+  display: inline-block;
+}
+.vb-blur-content {
+  transition: filter 0.18s ease;
+}
+.vb-blur-content.is-blurred {
+  filter: blur(8px) saturate(0.65);
+  pointer-events: none;
+}
+
+/* Trait badges with tooltips */
+.vb-trait-badge:hover {
+  animation: vb-trait-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes vb-trait-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.vb-trait-badge:hover .vb-trait-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Event popup animations */
+.vb-event-blur-in {
+  animation: vb-blur-in 0.4s ease-out forwards;
+}
+
+@keyframes vb-blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.vb-typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vb-typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.4;
+  animation: vb-typing-dot 1.4s infinite;
+}
+
+.vb-typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.vb-typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.vb-typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes vb-typing-dot {
+  0%, 60%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.vb-message-fade-in {
+  animation: vb-message-fade-in 0.3s ease-out forwards;
+}
+
+@keyframes vb-message-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
