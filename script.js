@@ -2508,8 +2508,10 @@ function renderStart(root) {
           return;
         }
 
-        // Otherwise always validate and set the name so it stays editable until matching
-        const nameVal = nameInput ? nameInput.value.trim() : "";
+        // Use the editable input for new players, or the saved name for returning players.
+        const nameVal = nameInput
+          ? nameInput.value.trim()
+          : (state.playerProfile?.name || "").trim();
         if (!isValidName(nameVal)) {
           state.nameError = "Very funny. Put a name.";
           state.showNameErrorModal = true;
