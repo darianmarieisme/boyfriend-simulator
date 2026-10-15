@@ -2,7 +2,13 @@
 
 A browser-based boyfriend simulator with personality quizzes, five boyfriend archetypes, relationship interactions, and multiple endings. Game progress is saved locally in your browser.
 
-## Play locally
+## Play online
+
+**[Play Algorithmically Yours](https://darianmarieisme.github.io/boyfriend-simulator/)**
+
+Play directly in your browser—no download or installation required.
+
+## Run locally for development
 
 Open a terminal in the folder where you want to keep the game, then run:
 
