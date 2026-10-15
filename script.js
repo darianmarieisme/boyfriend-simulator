@@ -1578,9 +1578,6 @@ const VoiceEffects = {
     "assets/ve/AudioElkGrunt4.wav",
     "assets/ve/MaleMoan1.wav",
     "assets/ve/AudioElkMaleKiss1.wav",
-    "assets/ve/MaleBaby1.wav",
-    "assets/ve/MaleKiss1.wav",
-    "assets/ve/MaleKiss2.wav",
     "assets/ve/MaleMoan2.wav",
     "assets/ve/MaleMoan3.wav",
     "assets/ve/AudioElkPant1.wav"
@@ -1595,7 +1592,7 @@ const VoiceEffects = {
     "assets/ve/Annoyed7.wav",
     "assets/ve/DanBosleyAnnoyed1.wav",
     "assets/ve/DillonBeckerArgue1.wav",
-    "assets/ve/DillonBeckerArgue2.wav",
+    "assets/ve/DillonBeckerARgue2.wav",
     "assets/ve/DillonBeckerArgue3.wav",
     "assets/ve/Argue1.wav"
   ],
@@ -2412,27 +2409,38 @@ function renderStart(root) {
     ${state.showCredits
       ? `
     <div class="vb-modal-backdrop">
-      <div class="vb-modal text-center" style="max-width: 500px;">
+      <div class="vb-modal vb-credits-modal text-center" style="max-width: 500px;">
         <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">Credits</h3>
         <div class="text-left text-sm md:text-base text-gray-700 space-y-3 mb-6">
           <div>
             <strong>Music:</strong><br>
-            One Man Symphony
+            “Reflection of Familiar Faces” by
+            <a href="https://onemansymphony.bandcamp.com/" target="_blank" rel="noopener noreferrer">One Man Symphony</a><br>
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>
+            “Island Dreaming” by Eric Matyas<br>
+            <a href="https://soundimage.org/" target="_blank" rel="noopener noreferrer">soundimage.org</a>
+          </div>
+          <div>
+            <strong>Visual Assets:</strong><br>
+            Original character sprites by Sutemo<br>
+            Modified by J Claudee (Sraye)<br>
+            <a href="https://sraye.itch.io/mature-male-character-sprites" target="_blank" rel="noopener noreferrer">Sraye’s Asset Pack</a>
           </div>
           <div>
             <strong>Voice Effects:</strong><br>
-            Dillon Becker<br>
-            Dan Bosley<br>
-            Audio Elk<br>
-            Public Domain Voices
+            <a href="https://dillonbecker.itch.io/sdap" target="_blank" rel="noopener noreferrer">Audio by Dillon Becker</a> —
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>
+            <a href="https://daniconshow.itch.io/generic-male-voice-pack" target="_blank" rel="noopener noreferrer">Generic Male Voice Pack</a>
+            by Dan Bosley (@daniconshow)<br>
+            Audio Elk —
+            <a href="https://audioelk.com/" target="_blank" rel="noopener noreferrer">AudioElk.com</a> /
+            <a href="https://audioelk.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a><br>
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
           </div>
           <div>
-            <strong>Sound Effects:</strong><br>
-            Freesound.org
-          </div>
-          <div>
-            <strong>Boyfriend Art:</strong><br>
-            Sutemo (Modified by J Claudee (Sraye))
+            <strong>Other Resources:</strong><br>
+            Public domain sounds sourced from
+            <a href="https://freesound.org/" target="_blank" rel="noopener noreferrer">Freesound.org</a>
           </div>
         </div>
         <button id="vb-credits-close" class="vb-modal-btn px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow hover:shadow-lg transition-all">
@@ -3245,7 +3253,7 @@ function initHoverSound() {
     hoverSound2.preload = "auto";
   }
   if (!confirmSound) {
-    confirmSound = new Audio("assets/se/confirm.wav");
+    confirmSound = new Audio("assets/se/Confirm.wav");
     confirmSound.volume = 0.5;
     confirmSound.preload = "auto";
   }
@@ -3566,9 +3574,16 @@ function getPortraitSrc(bfType, bf) {
   if (bf && bf.photo) {
     return bf.photo.startsWith("http") ? bf.photo : `assets/portraits/${bf.photo}`;
   }
-  // default to a type-based file name (e.g., assets/portraits/chaotic.png)
+  // Match the uploaded filenames exactly, including case on hosted servers.
+  const portraits = {
+    chaotic: "Chaotic.png",
+    loyal: "loyal.png",
+    nerdy: "Nerdy.png",
+    athletic: "Athletic.png",
+    mysterious: "Mysterious.png"
+  };
   if (bfType) {
-    return `assets/portraits/${bfType}.png`;
+    return `assets/portraits/${portraits[bfType] || `${bfType}.png`}`;
   }
   return null;
 }
@@ -5357,27 +5372,16 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadProfile() {
   try {
     const saved = localStorage.getItem("vb_player_profile");
-    console.log("=== LOAD PROFILE ===");
-    console.log("Raw saved data from localStorage:", saved ? saved.substring(0, 200) : "null");
 
     if (saved) {
       const parsed = JSON.parse(saved);
-      console.log("Parsed profile:", {
-        name: parsed.name,
-        hasMatchedBefore: parsed.hasMatchedBefore,
-        hasCurrentRun: !!(parsed.currentRun && parsed.currentRun.active),
-        profileKeys: Object.keys(parsed)
-      });
 
       state.playerProfile = parsed;
       // Do not auto-load a saved secret; require re-entry each run
       state.playersecret = "";
 
       // Don't auto-load game state - always show intro screen
-      // The "Continue" button will handle loading the appropriate state
-      console.log("Profile loaded. Player will see intro screen with Continue button.");
-    } else {
-      console.log("No saved profile found in localStorage");
+      // The Start button loads the active run when selected.
     }
   } catch (e) {
     console.warn("Profile load failed", e);
@@ -5389,18 +5393,6 @@ function saveProfile() {
     if (state.playerProfile) {
       const stringified = JSON.stringify(state.playerProfile);
       localStorage.setItem("vb_player_profile", stringified);
-
-      // Parse it back to see what was actually saved
-      const whatWasSaved = JSON.parse(stringified);
-
-      console.log("Profile saved:", {
-        name: state.playerProfile.name,
-        hasMatchedBefore: state.playerProfile.hasMatchedBefore,
-        hasCurrentRun: !!state.playerProfile.currentRun,
-        profileKeys: Object.keys(state.playerProfile)
-      });
-      console.log("STRINGIFIED profile that was saved to localStorage:", stringified.substring(0, 500));
-      console.log("hasMatchedBefore in parsed saved data:", whatWasSaved.hasMatchedBefore);
     } else {
       console.warn("Attempted to save but playerProfile is null/undefined");
     }
@@ -5435,9 +5427,6 @@ function deleteAllData() {
 function persistCurrentRun() {
   if (!state.boyfriendType) return;
 
-  console.log("=== persistCurrentRun START ===");
-  console.log("Before any changes, state.playerProfile:", state.playerProfile);
-
   // Ensure playerProfile exists (create if needed for first match)
   if (!state.playerProfile) {
     state.playerProfile = {};
@@ -5453,15 +5442,9 @@ function persistCurrentRun() {
     console.warn("Profile has no name when persisting run. This shouldn't happen.");
   }
 
-  console.log("About to set hasMatchedBefore = true");
-  console.log("state.playerProfile before setting:", JSON.stringify(state.playerProfile, null, 2));
-
   // Mark that this profile has matched with a boyfriend at least once
   state.playerProfile.hasMatchedBefore = true;
 
-  console.log("Just set hasMatchedBefore = true");
-  console.log("state.playerProfile.hasMatchedBefore is now:", state.playerProfile.hasMatchedBefore);
-  console.log("Full profile after setting:", JSON.stringify(state.playerProfile, null, 2));
   state.playerProfile.currentRun = {
     active: true,
     boyfriendType: state.boyfriendType,
@@ -5487,11 +5470,6 @@ function persistCurrentRun() {
     triggeredThresholdEvents: state.triggeredThresholdEvents,
     cooldowns: state.cooldowns
   };
-
-  console.log("After creating currentRun object:");
-  console.log("state.playerProfile.hasMatchedBefore is:", state.playerProfile.hasMatchedBefore);
-  console.log("About to call saveProfile()");
-  console.log("=== persistCurrentRun END ===");
 
   saveProfile();
 }

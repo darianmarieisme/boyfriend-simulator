@@ -997,3 +997,17 @@ button.is-cooldown span {
     transform: translateY(0);
   }
 }
+
+/* Keep the complete credits readable on smaller screens. */
+.vb-credits-modal {
+  box-sizing: border-box;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+.vb-credits-modal a {
+  color: #7e22ce;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
